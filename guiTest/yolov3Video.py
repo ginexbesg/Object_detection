@@ -81,15 +81,19 @@ def detectVideo(fileName):
             for i in indexes.flatten():
                 
                 x,y,w,h = boxes[i]
+                h_img= img.shape[0] 
+                w_img= img.shape[1] 
+                win = np.zeros((h_img, w_img,3),np.uint8)
                 label = str(classes[class_ids[i]])
                 if label == 'person':
                     confidence = str(round(confidences[i],2))
                     #color = colors[i]
-                    cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2)
-                    cv2.putText(img, label , (x,y+20), font, 2, (255,255,255), 2)
-                    #alpha = 0.5
-                    #mask = shapes.astype(bool)
-                    #out = cv2.addWeighted(img, alpha, img, 1 - alpha, 0)
+                    #cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2)
+                    #cv2.putText(img, label , (x,y+20), font, 2, (255,255,255), 2)
+                    cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2) 
+                    cv2.rectangle(win, (x,y), (x+w, y+h), (200,200,250), -1)            
+                    cv2.putText(img, label , (x,y+10), font, 1, (0,0,255), 2)
+                    img = cv2.addWeighted(img, 0.8, win,0.4, 0)
         
         #esc key
         cv2.imshow('Image', img)

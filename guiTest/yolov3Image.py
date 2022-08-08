@@ -1,6 +1,10 @@
 import cv2
 import numpy as np
 
+
+
+
+
 def detect(fileName):
         net = cv2.dnn.readNet('yolov3.weights','yolov3.cfg')
 
@@ -57,19 +61,29 @@ def detect(fileName):
         indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
 
         font = cv2.FONT_HERSHEY_PLAIN
-        colors = np.random.uniform(0,255,size=(len(boxes), 3))
+        #colors = np.random.uniform(0,255,size=(len(boxes), 3))
 
         for i in indexes.flatten():
             x,y,w,h = boxes[i]
+            h_img= img.shape[0] 
+            w_img= img.shape[1] 
+            win = np.zeros((h_img, w_img,3),np.uint8)
+            #print(win.shape)
+            #print(img.shape)
+            #print(h_img)
+            #print(w_img)
             label = str(classes[class_ids[i]])
             confidence = str(round(confidences[i],2))
             #color = colors[i]
-            cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2)
-            cv2.putText(img, label , (x,y+20), font, 2, (255,255,255), 2)
+            
+            cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2) 
+            cv2.rectangle(win, (x,y), (x+w, y+h), (200,200,250), -1)            
+            cv2.putText(img, label , (x,y+10), font, 1, (0,0,255), 2)
+            img = cv2.addWeighted(img, 0.8, win,0.4, 0)
 
         print(indexes.flatten())
 
-        cv2.imshow('Image', img)
+        cv2.imshow('Image',img)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
