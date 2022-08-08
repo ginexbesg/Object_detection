@@ -63,9 +63,9 @@ def detect(fileName):
             x,y,w,h = boxes[i]
             label = str(classes[class_ids[i]])
             confidence = str(round(confidences[i],2))
-            color = colors[i]
-            cv2.rectangle(img, (x,y), (x+w, y+h), color, 2)
-            cv2.putText(img, label + " "+ confidence, (x,y+20), font, 2, (255,255,255), 2)
+            #color = colors[i]
+            cv2.rectangle(img, (x,y), (x+w, y+h), (0,255,0), 2)
+            cv2.putText(img, label , (x,y+20), font, 2, (255,255,255), 2)
 
         print(indexes.flatten())
 
