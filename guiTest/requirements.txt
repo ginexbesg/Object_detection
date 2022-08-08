@@ -1,0 +1,6 @@
+pillow
+tk
+tkvideoPlayer
+tkvideo
+numpy
+opencv-python
