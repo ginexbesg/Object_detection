@@ -1,0 +1,14 @@
+pip install pipreqs
+pip3 freeze > requirements.txt  # Python3
+pip freeze > requirements.txt  # Python2
+
+# Run in current directory
+python3 -m  pipreqs.pipreqs .
+
+
+
+pip3 install virtualenv
+python3 -m venv <myenvname> 
+
+python -m venv ./venv
+venv\Scripts\activate
